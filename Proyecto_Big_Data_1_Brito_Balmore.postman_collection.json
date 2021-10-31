@@ -1,0 +1,1391 @@
+{
+	"info": {
+		"_postman_id": "a901876e-6f56-4311-848c-fc9a806360c1",
+		"name": "Proyecto_Big_Data_1_Brito_Balmore",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Getting_Started",
+			"item": [
+				{
+					"name": "Filter_Context_Data",
+					"item": [
+						{
+							"name": "Text Value",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:1026/v2/entities/?q=address.addressLocality==Prenzlauer Berg&type=Store&options=keyValues",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "1026",
+									"path": [
+										"v2",
+										"entities",
+										""
+									],
+									"query": [
+										{
+											"key": "q",
+											"value": "address.addressLocality==Prenzlauer Berg"
+										},
+										{
+											"key": "type",
+											"value": "Store"
+										},
+										{
+											"key": "options",
+											"value": "keyValues"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "New Request",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:1026/v2/entities/?georel=near;maxDistance:1500&geometry=point&coords=13.3986,52.5547&type=Store&options=keyValues",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "1026",
+									"path": [
+										"v2",
+										"entities",
+										""
+									],
+									"query": [
+										{
+											"key": "georel",
+											"value": "near;maxDistance:1500"
+										},
+										{
+											"key": "geometry",
+											"value": "point"
+										},
+										{
+											"key": "coords",
+											"value": "13.3986,52.5547"
+										},
+										{
+											"key": "type",
+											"value": "Store"
+										},
+										{
+											"key": "options",
+											"value": "keyValues"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Obtain_Entity_Data",
+					"item": [
+						{
+							"name": "Entity_Data_id",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:1026/v2/entities/urn:ngsi-ld:Store:001?options=keyValues&type=Store&attrs=name",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "1026",
+									"path": [
+										"v2",
+										"entities",
+										"urn:ngsi-ld:Store:001"
+									],
+									"query": [
+										{
+											"key": "options",
+											"value": "keyValues"
+										},
+										{
+											"key": "type",
+											"value": "Store"
+										},
+										{
+											"key": "attrs",
+											"value": "name"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Entity_data_text",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:1026/v2/entities/?type=Store&options=keyValues",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "1026",
+									"path": [
+										"v2",
+										"entities",
+										""
+									],
+									"query": [
+										{
+											"key": "type",
+											"value": "Store",
+											"description": "Entity type, to avoid ambiguity in case there are several entities with the same entity id"
+										},
+										{
+											"key": "options",
+											"value": "keyValues",
+											"description": "* `keyValues` option in order to get a more compact and brief representation, including just attribute values\n* `values` option combined with a list of attribute values  `attrs`  for an ordered list of attributes only"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Creating_Entities",
+					"item": [
+						{
+							"name": "First-Entity",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"id\": \"urn:ngsi-ld:Store:001\",\r\n    \"type\": \"Store\",\r\n    \"address\": {\r\n        \"type\": \"PostalAddress\",\r\n        \"value\": {\r\n            \"streetAddress\": \"Bornholmer Straße 65\",\r\n            \"addressRegion\": \"Berlin\",\r\n            \"addressLocality\": \"Prenzlauer Berg\",\r\n            \"postalCode\": \"10439\"\r\n        },\r\n        \"metadata\": {\r\n    \t\t\"verified\": {\r\n        \t\t\"value\": true,\r\n        \t\t\"type\": \"Boolean\"\r\n    \t\t}\r\n    \t}\r\n    },\r\n    \"location\": {\r\n        \"type\": \"geo:json\",\r\n        \"value\": {\r\n             \"type\": \"Point\",\r\n             \"coordinates\": [13.3986, 52.5547]\r\n        }\r\n    },\r\n    \"name\": {\r\n        \"type\": \"Text\",\r\n        \"value\": \"Bösebrücke Einkauf\"\r\n    }\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:1026/v2/entities/",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "1026",
+									"path": [
+										"v2",
+										"entities",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Second-Entity",
+							"request": {
+								"auth": {
+									"type": "apikey"
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n\t\"type\": \"Store\",\r\n    \"id\": \"urn:ngsi-ld:Store:002\",\r\n    \"address\": {\r\n        \"type\": \"PostalAddress\",\r\n        \"value\": {\r\n            \"streetAddress\": \"Friedrichstraße 44\",\r\n            \"addressRegion\": \"Berlin\",\r\n            \"addressLocality\": \"Kreuzberg\",\r\n            \"postalCode\": \"10969\"\r\n        }\r\n    },\r\n    \"location\": {\r\n        \"type\": \"geo:json\",\r\n        \"value\": {\r\n             \"type\": \"Point\",\r\n             \"coordinates\": [13.3903, 52.5075]\r\n        }\r\n    },\r\n    \"name\": {\r\n        \"type\": \"Text\",\r\n        \"value\": \"Checkpoint Markt\"\r\n    }\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:1026/v2/entities/",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "1026",
+									"path": [
+										"v2",
+										"entities",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Context Information",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:1026/v2/entities/",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "1026",
+									"path": [
+										"v2",
+										"entities",
+										""
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Obtain_Information",
+					"item": [
+						{
+							"name": "Orion",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:1026/version/",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "1026",
+									"path": [
+										"version",
+										""
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Entity_Relationships",
+			"item": [
+				{
+					"name": "CREATING SEVERAL ENTITIES AT ONCE",
+					"item": [
+						{
+							"name": "Request_1",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"actionType\":\"APPEND\",\r\n  \"entities\":[\r\n    {\r\n      \"id\":\"urn:ngsi-ld:Shelf:unit001\", \"type\":\"Shelf\",\r\n      \"location\":{\r\n        \"type\":\"geo:json\", \"value\":{ \"type\":\"Point\",\"coordinates\":[13.3986112, 52.554699]}\r\n      },\r\n      \"name\":{\r\n        \"type\":\"Text\", \"value\":\"Corner Unit\"\r\n      },\r\n      \"maxCapacity\":{\r\n        \"type\":\"Integer\", \"value\":50\r\n      }\r\n    },\r\n    {\r\n      \"id\":\"urn:ngsi-ld:Shelf:unit002\", \"type\":\"Shelf\",\r\n      \"location\":{\r\n        \"type\":\"geo:json\",\"value\":{\"type\":\"Point\",\"coordinates\":[13.3987221, 52.5546640]}\r\n      },\r\n      \"name\":{\r\n        \"type\":\"Text\", \"value\":\"Wall Unit 1\"\r\n      },\r\n      \"maxCapacity\":{\r\n        \"type\":\"Integer\", \"value\":100\r\n      }\r\n    },\r\n    {\r\n      \"id\":\"urn:ngsi-ld:Shelf:unit003\", \"type\":\"Shelf\",\r\n      \"location\":{\r\n        \"type\":\"geo:json\", \"value\":{\"type\":\"Point\",\"coordinates\":[13.3987221, 52.5546640]}\r\n      },\r\n      \"name\":{\r\n        \"type\":\"Text\", \"value\":\"Wall Unit 2\"\r\n      },\r\n      \"maxCapacity\":{\r\n        \"type\":\"Integer\", \"value\":100\r\n      }\r\n    },\r\n    {\r\n      \"id\":\"urn:ngsi-ld:Shelf:unit004\", \"type\":\"Shelf\",\r\n      \"location\":{\r\n        \"type\":\"geo:json\", \"value\":{\"type\":\"Point\",\"coordinates\":[13.390311, 52.507522]}\r\n      },\r\n      \"name\":{\r\n        \"type\":\"Text\", \"value\":\"Corner Unit\"\r\n      },\r\n      \"maxCapacity\":{\r\n        \"type\":\"Integer\", \"value\":50\r\n      }\r\n    },\r\n    {\r\n      \"id\":\"urn:ngsi-ld:Shelf:unit005\", \"type\":\"Shelf\",\r\n      \"location\":{\r\n        \"type\":\"geo:json\",\"value\":{\"type\":\"Point\",\"coordinates\":[13.390309, 52.50751]}\r\n      },\r\n      \"name\":{\r\n        \"type\":\"Text\", \"value\":\"Long Wall Unit\"\r\n      },\r\n      \"maxCapacity\":{\r\n        \"type\":\"Integer\", \"value\":200\r\n      }\r\n    }\r\n  ]\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:1026/v2/op/update",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "1026",
+									"path": [
+										"v2",
+										"op",
+										"update"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Request_2",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": " {\r\n \"actionType\":\"APPEND\",\r\n  \"entities\":[\r\n    {\r\n      \"id\":\"urn:ngsi-ld:Product:001\", \"type\":\"Product\",\r\n      \"name\":{\r\n        \"type\":\"Text\", \"value\":\"Beer\"\r\n      },\r\n      \"size\":{\r\n        \"type\":\"Text\", \"value\": \"S\"\r\n      },\r\n      \"price\":{\r\n        \"type\":\"Integer\", \"value\": 99\r\n      }\r\n    },\r\n    {\r\n      \"id\":\"urn:ngsi-ld:Product:002\", \"type\":\"Product\",\r\n      \"name\":{\r\n        \"type\":\"Text\", \"value\":\"Red Wine\"\r\n      },\r\n      \"size\":{\r\n        \"type\":\"Text\", \"value\": \"M\"\r\n      },\r\n      \"price\":{\r\n        \"type\":\"Integer\", \"value\": 1099\r\n      }\r\n    },\r\n    {\r\n      \"id\":\"urn:ngsi-ld:Product:003\", \"type\":\"Product\",\r\n      \"name\":{\r\n        \"type\":\"Text\", \"value\":\"White Wine\"\r\n      },\r\n      \"size\":{\r\n        \"type\":\"Text\", \"value\": \"M\"\r\n      },\r\n      \"price\":{\r\n        \"type\":\"Integer\", \"value\": 1499\r\n      }\r\n    },\r\n    {\r\n      \"id\":\"urn:ngsi-ld:Product:004\", \"type\":\"Product\",\r\n      \"name\":{\r\n        \"type\":\"Text\", \"value\":\"Vodka\"\r\n      },\r\n      \"size\":{\r\n        \"type\":\"Text\", \"value\": \"XL\"\r\n      },\r\n      \"price\":{\r\n        \"type\":\"Integer\", \"value\": 5000\r\n      }\r\n    }\r\n  ]\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:1026/v2/op/update",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "1026",
+									"path": [
+										"v2",
+										"op",
+										"update"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Request_3",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:1026/v2/entities/urn:ngsi-ld:Shelf:unit001",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "1026",
+									"path": [
+										"v2",
+										"entities",
+										"urn:ngsi-ld:Shelf:unit001"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "READING A FOREIGN KEY RELATIONSHIP",
+					"item": [
+						{
+							"name": "READING_FROM_CHILD_ENTITY_TO _PARENT_ENTITY",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:1026/v2/entities/urn:ngsi-ld:Shelf:unit001?type=Shelf&options=values&attrs=refStore",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "1026",
+									"path": [
+										"v2",
+										"entities",
+										"urn:ngsi-ld:Shelf:unit001"
+									],
+									"query": [
+										{
+											"key": "type",
+											"value": "Shelf"
+										},
+										{
+											"key": "options",
+											"value": "values"
+										},
+										{
+											"key": "attrs",
+											"value": "refStore"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "READING_FROM_PARENT_ENTITY_TO_CHILD_ENTITY",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:1026/v2/entities?q=refStore==urn:ngsi-ld:Store:001&options=count&attrs=type&type=Shelf",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "1026",
+									"path": [
+										"v2",
+										"entities"
+									],
+									"query": [
+										{
+											"key": "q",
+											"value": "refStore==urn:ngsi-ld:Store:001"
+										},
+										{
+											"key": "options",
+											"value": "count"
+										},
+										{
+											"key": "attrs",
+											"value": "type"
+										},
+										{
+											"key": "type",
+											"value": "Shelf"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Request 1",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:1026/v2/entities?q=refStore==urn:ngsi-ld:Store:001&type=Shelf&options=values&attrs=name",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "1026",
+									"path": [
+										"v2",
+										"entities"
+									],
+									"query": [
+										{
+											"key": "q",
+											"value": "refStore==urn:ngsi-ld:Store:001"
+										},
+										{
+											"key": "type",
+											"value": "Shelf"
+										},
+										{
+											"key": "options",
+											"value": "values"
+										},
+										{
+											"key": "attrs",
+											"value": "name"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "CREATING A ONE-TO-MANY RELATIONSHIP",
+					"item": [
+						{
+							"name": "Store",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"actionType\":\"APPEND\",\r\n  \"entities\":[\r\n    {\r\n      \"id\":\"urn:ngsi-ld:Shelf:unit001\", \"type\":\"Shelf\",\r\n      \"refStore\": {\r\n        \"type\": \"Relationship\",\r\n        \"value\": \"urn:ngsi-ld:Store:001\"\r\n      }\r\n    },\r\n    {\r\n      \"id\":\"urn:ngsi-ld:Shelf:unit002\", \"type\":\"Shelf\",\r\n      \"refStore\": {\r\n        \"type\": \"Relationship\",\r\n        \"value\": \"urn:ngsi-ld:Store:001\"\r\n      }\r\n    },\r\n    {\r\n      \"id\":\"urn:ngsi-ld:Shelf:unit003\", \"type\":\"Shelf\",\r\n      \"refStore\": {\r\n        \"type\": \"Relationship\",\r\n        \"value\": \"urn:ngsi-ld:Store:001\"\r\n      }\r\n    },\r\n    {\r\n      \"id\":\"urn:ngsi-ld:Shelf:unit004\", \"type\":\"Shelf\",\r\n      \"refStore\": {\r\n        \"type\": \"Relationship\",\r\n        \"value\": \"urn:ngsi-ld:Store:002\"\r\n      }\r\n    },\r\n    {\r\n      \"id\":\"urn:ngsi-ld:Shelf:unit005\", \"type\":\"Shelf\",\r\n      \"refStore\": {\r\n        \"type\": \"Relationship\",\r\n        \"value\": \"urn:ngsi-ld:Store:002\"\r\n      }\r\n    }\r\n  ]\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:1026/v2/op/update",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "1026",
+									"path": [
+										"v2",
+										"op",
+										"update"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "refStore",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:1026/v2/entities/urn:ngsi-ld:Shelf:unit001?type=Shelf&options=keyValues",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "1026",
+									"path": [
+										"v2",
+										"entities",
+										"urn:ngsi-ld:Shelf:unit001"
+									],
+									"query": [
+										{
+											"key": "type",
+											"value": "Shelf"
+										},
+										{
+											"key": "options",
+											"value": "keyValues"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "CREATING MANY-TO-MANY RELATIONSHIPS",
+					"item": [
+						{
+							"name": "InventoryItem",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"id\": \"urn:ngsi-ld:InventoryItem:001\", \"type\": \"InventoryItem\",\r\n    \"refStore\": {\r\n        \"type\": \"Relationship\",\r\n        \"value\": \"urn:ngsi-ld:Store:001\"\r\n    },\r\n    \"refShelf\": {\r\n        \"type\": \"Relationship\",\r\n        \"value\": \"urn:ngsi-ld:Shelf:unit001\"\r\n    },\r\n    \"refProduct\": {\r\n        \"type\": \"Relationship\",\r\n        \"value\": \"urn:ngsi-ld:Product:001\"\r\n    },\r\n    \"stockCount\":{\r\n        \"type\":\"Integer\", \"value\": 10000\r\n    },\r\n    \"shelfCount\":{\r\n        \"type\":\"Integer\", \"value\": 50\r\n    }\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:1026/v2/entities",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "1026",
+									"path": [
+										"v2",
+										"entities"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "READING FROM A BRIDGE TABLE",
+					"item": [
+						{
+							"name": "New Request",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:1026/v2/entities?q=refStore==urn:ngsi-ld:Store:001&options=values&attrs=refProduct&type=InventoryItem",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "1026",
+									"path": [
+										"v2",
+										"entities"
+									],
+									"query": [
+										{
+											"key": "q",
+											"value": "refStore==urn:ngsi-ld:Store:001"
+										},
+										{
+											"key": "options",
+											"value": "values"
+										},
+										{
+											"key": "attrs",
+											"value": "refProduct"
+										},
+										{
+											"key": "type",
+											"value": "InventoryItem"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "New Request",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:1026/v2/entities?options=values&attrs=refStore&type=InventoryItem&q=refProduct==urn:ngsi-ld:Product:001",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "1026",
+									"path": [
+										"v2",
+										"entities"
+									],
+									"query": [
+										{
+											"key": "options",
+											"value": "values"
+										},
+										{
+											"key": "attrs",
+											"value": "refStore"
+										},
+										{
+											"key": "type",
+											"value": "InventoryItem"
+										},
+										{
+											"key": "q",
+											"value": "refProduct==urn:ngsi-ld:Product:001"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "DATA INTEGRITY",
+					"item": [
+						{
+							"name": "New Request",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:1026/v2/entities?q=refStore==urn:ngsi-ld:Store:001&options=count&attrs=type",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "1026",
+									"path": [
+										"v2",
+										"entities"
+									],
+									"query": [
+										{
+											"key": "q",
+											"value": "refStore==urn:ngsi-ld:Store:001"
+										},
+										{
+											"key": "options",
+											"value": "count"
+										},
+										{
+											"key": "attrs",
+											"value": "type"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "CRUD",
+			"item": [
+				{
+					"name": "CREATE A NEW DATA ENTITY",
+					"item": [
+						{
+							"name": "New Request",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n      \"id\":\"urn:ngsi-ld:Product:010\", \"type\":\"Product\",\r\n      \"name\":{\"type\":\"Text\", \"value\":\"Lemonade\"},\r\n      \"size\":{\"type\":\"Text\", \"value\": \"S\"},\r\n      \"price\":{\"type\":\"Integer\", \"value\": 99}\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:1026/v2/entities",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "1026",
+									"path": [
+										"v2",
+										"entities"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "New Request",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:1026/v2/entities/urn:ngsi-ld:Product:010?type=Product",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "1026",
+									"path": [
+										"v2",
+										"entities",
+										"urn:ngsi-ld:Product:010"
+									],
+									"query": [
+										{
+											"key": "type",
+											"value": "Product"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "CREATE A NEW ATTRIBUTE",
+					"item": [
+						{
+							"name": "New Request",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n      \"specialOffer\":{\"value\": true}\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:1026/v2/entities/urn:ngsi-ld:Product:001/attrs",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "1026",
+									"path": [
+										"v2",
+										"entities",
+										"urn:ngsi-ld:Product:001",
+										"attrs"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "New Request",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:1026/v2/entities/urn:ngsi-ld:Product:001?type=Product",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "1026",
+									"path": [
+										"v2",
+										"entities",
+										"urn:ngsi-ld:Product:001"
+									],
+									"query": [
+										{
+											"key": "type",
+											"value": "Product"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "BATCH CREATE NEW DATA ENTITIES OR ATTRIBUTES",
+					"item": [
+						{
+							"name": "New Request",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"actionType\":\"append_strict\",\r\n  \"entities\":[\r\n    {\r\n      \"id\":\"urn:ngsi-ld:Product:011\", \"type\":\"Product\",\r\n      \"name\":{\"type\":\"Text\", \"value\":\"Brandy\"},\r\n      \"size\":{\"type\":\"Text\", \"value\": \"M\"},\r\n      \"price\":{\"type\":\"Integer\", \"value\": 1199}\r\n    },\r\n    {\r\n      \"id\":\"urn:ngsi-ld:Product:012\", \"type\":\"Product\",\r\n      \"name\":{\"type\":\"Text\", \"value\":\"Port\"},\r\n      \"size\":{\"type\":\"Text\", \"value\": \"M\"},\r\n      \"price\":{\"type\":\"Integer\", \"value\": 1099}\r\n    },\r\n    {\r\n      \"id\":\"urn:ngsi-ld:Product:001\", \"type\":\"Product\",\r\n      \"offerPrice\":{\"type\":\"Integer\", \"value\": 89}\r\n    }\r\n  ]\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:1026/v2/op/update",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "1026",
+									"path": [
+										"v2",
+										"op",
+										"update"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "BATCH CREATE/OVERWRITE NEW DATA ENTITIES",
+					"item": [
+						{
+							"name": "New Request",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"actionType\":\"append\",\r\n  \"entities\":[\r\n    {\r\n      \"id\":\"urn:ngsi-ld:Product:011\", \"type\":\"Product\",\r\n      \"name\":{\"type\":\"Text\", \"value\":\"Brandy\"},\r\n      \"size\":{\"type\":\"Text\", \"value\": \"M\"},\r\n      \"price\":{\"type\":\"Integer\", \"value\": 1199}\r\n    },\r\n    {\r\n      \"id\":\"urn:ngsi-ld:Product:012\", \"type\":\"Product\",\r\n      \"name\":{\"type\":\"Text\", \"value\":\"Port\"},\r\n      \"size\":{\"type\":\"Text\", \"value\": \"M\"},\r\n      \"price\":{\"type\":\"Integer\", \"value\": 1099}\r\n    }\r\n  ]\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:1026/v2/op/update",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "1026",
+									"path": [
+										"v2",
+										"op",
+										"update"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "READ OPERATIONS",
+					"item": [
+						{
+							"name": "READ A DATA ENTITY (VERBOSE)",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:1026/v2/entities/urn:ngsi-ld:Product:010?type=Product",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "1026",
+									"path": [
+										"v2",
+										"entities",
+										"urn:ngsi-ld:Product:010"
+									],
+									"query": [
+										{
+											"key": "type",
+											"value": "Product"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "READ AN ATTRIBUTE FROM A DATA ENTITY",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:1026/v2/entities/urn:ngsi-ld:Product:001/attrs/name/value",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "1026",
+									"path": [
+										"v2",
+										"entities",
+										"urn:ngsi-ld:Product:001",
+										"attrs",
+										"name",
+										"value"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "READ A DATA ENTITY (KEY-VALUE PAIRS)",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:1026/v2/entities/urn:ngsi-ld:Product:001?type=Product&options=keyValues&attrs=name,price",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "1026",
+									"path": [
+										"v2",
+										"entities",
+										"urn:ngsi-ld:Product:001"
+									],
+									"query": [
+										{
+											"key": "type",
+											"value": "Product"
+										},
+										{
+											"key": "options",
+											"value": "keyValues"
+										},
+										{
+											"key": "attrs",
+											"value": "name,price"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "READ MULTIPLE ATTRIBUTES VALUES FROM A DATA ENTITY",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:1026/v2/entities/urn:ngsi-ld:Product:001?type=Product&options=values&attrs=name,price",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "1026",
+									"path": [
+										"v2",
+										"entities",
+										"urn:ngsi-ld:Product:001"
+									],
+									"query": [
+										{
+											"key": "type",
+											"value": "Product"
+										},
+										{
+											"key": "options",
+											"value": "values"
+										},
+										{
+											"key": "attrs",
+											"value": "name,price"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "LIST ALL DATA ENTITIES (VERBOSE)",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:1026/v2/entities?type=Product",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "1026",
+									"path": [
+										"v2",
+										"entities"
+									],
+									"query": [
+										{
+											"key": "type",
+											"value": "Product"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "LIST ALL DATA ENTITIES (KEY-VALUE PAIRS)",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:1026/v2/entities/?type=Product&options=keyValues&attrs=name,price",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "1026",
+									"path": [
+										"v2",
+										"entities",
+										""
+									],
+									"query": [
+										{
+											"key": "type",
+											"value": "Product"
+										},
+										{
+											"key": "options",
+											"value": "keyValues"
+										},
+										{
+											"key": "attrs",
+											"value": "name,price"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "LIST DATA ENTITY BY TYPE",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:1026/v2/entities/?type=Product&options=count&attrs=__NONE",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "1026",
+									"path": [
+										"v2",
+										"entities",
+										""
+									],
+									"query": [
+										{
+											"key": "type",
+											"value": "Product"
+										},
+										{
+											"key": "options",
+											"value": "count"
+										},
+										{
+											"key": "attrs",
+											"value": "__NONE"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "CONTEXT_DATA_AND_CONTEXT_PROVIDERS",
+			"item": [
+				{
+					"name": "API_CONTEXT",
+					"item": [
+						{
+							"name": "WEATHER API CONTEXT PROVIDER (HEALTH CHECK)",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:3000/health/weather",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"health",
+										"weather"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "TWITTER API CONTEXT PROVIDER (HEALTH CHECK)",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:3000/health/twitter",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"health",
+										"twitter"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "STATIC DATA CONTEXT PROVIDER (HEALTH CHECK)",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:3000/health/static",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"health",
+										"static"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "RANDOM PROVIDER (HEALTH CHECK)",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:3000/health/random",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"health",
+										"random"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "CONTEXT PROVIDER REGISTRATION ACTIONS",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"entities\": [\r\n        {\r\n            \"type\": \"Store\",\r\n            \"isPattern\": \"false\",\r\n            \"id\": \"urn:ngsi-ld:Store:001\"\r\n        }\r\n    ],\r\n    \"attrs\": [\r\n        \"temperature\",\r\n        \"relativeHumidity\"\r\n    ]\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:3000/random/weatherConditions/op/query",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"random",
+										"weatherConditions",
+										"op",
+										"query"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "RETRIEVING_SING_MULT",
+					"item": [
+						{
+							"name": "RETRIEVING A SINGLE ATTRIBUTE VALUE",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"entities\": [\r\n        {\r\n            \"type\": \"Store\",\r\n            \"isPattern\": \"false\",\r\n            \"id\": \"urn:ngsi-ld:Store:001\"\r\n        }\r\n    ],\r\n    \"attrs\": [\r\n        \"temperature\"\r\n    ]\r\n} ",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:3000/static/temperature/op/query",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"static",
+										"temperature",
+										"op",
+										"query"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "RETRIEVING MULTIPLE ATTRIBUTE VALUES",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"entities\": [\r\n        {\r\n            \"type\": \"Store\",\r\n            \"isPattern\": \"false\",\r\n            \"id\": \"urn:ngsi-ld:Store:001\"\r\n        }\r\n    ],\r\n    \"attrs\": [\r\n        \"temperature\",\r\n        \"relativeHumidity\"\r\n    ]\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:3000/random/weatherConditions/op/query",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"random",
+										"weatherConditions",
+										"op",
+										"query"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "REGISTERING",
+					"item": [
+						{
+							"name": "REGISTERING A NEW CONTEXT PROVIDER",
+							"protocolProfileBehavior": {
+								"disabledSystemHeaders": {
+									"connection": true,
+									"accept-encoding": true,
+									"accept": true,
+									"user-agent": true,
+									"host": true,
+									"content-length": true
+								}
+							},
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"description\": \"Random Weather Conditions\",\r\n  \"dataProvided\": {\r\n    \"entities\": [\r\n      {\r\n        \"id\": \"urn:ngsi-ld:Store:001\",\r\n        \"type\": \"Store\"\r\n      }\r\n    ],\r\n    \"attrs\": [\r\n      \"relativeHumidity\"\r\n    ]\r\n  },\r\n  \"provider\": {\r\n    \"http\": {\r\n      \"url\": \"http://context-provider:3000/random/weatherConditions\"\r\n    }\r\n  }\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:1026/v2/registration",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "1026",
+									"path": [
+										"v2",
+										"registration"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "New Request",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:1026/v2/entities/urn:ngsi-ld:Store:001?type=Store",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "1026",
+									"path": [
+										"v2",
+										"entities",
+										"urn:ngsi-ld:Store:001"
+									],
+									"query": [
+										{
+											"key": "type",
+											"value": "Store"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		}
+	]
+}
