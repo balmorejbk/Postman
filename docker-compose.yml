@@ -1,0 +1,89 @@
+environment:
+    - "DEBUG=tutorial:*"
+    - "CONTEXT_BROKER=http://orion:1026/v2"
+    - "OPENWEATHERMAP_KEY_ID=<ADD_YOUR_KEY_ID>"
+    - "TWITTER_CONSUMER_KEY=<ADD_YOUR_CONSUMER_KEY>"
+    - "TWITTER_CONSUMER_SECRET=<ADD_YOUR_CONSUMER_SECRET>"
+
+postgres-db:
+    image: postgres:latest
+    hostname: postgres-db
+    container_name: db-postgres
+    expose:
+        - "5432"
+    ports:
+        - "5432:5432"
+    networks:
+        - default
+    environment:
+        - "POSTGRES_PASSWORD=password"
+        - "POSTGRES_USER=postgres"
+        - "POSTGRES_DB=postgres"
+        
+mongo-db:
+    image: mongo:4.2
+    hostname: mongo-db
+    container_name: db-mongo
+    ports:
+        - "27017:27017"
+    networks:
+        - default
+        
+tutorial:
+    image: fiware/tutorials.context-provider
+    hostname: context-provider
+    container_name: fiware-tutorial
+    networks:
+        - default
+    expose:
+        - "3000"
+    ports:
+        - "3000:3000"
+    environment:
+        - "DEBUG=tutorial:*"
+        - "PORT=3000"
+        - "CONTEXT_BROKER=http://orion:1026/v2"
+        - "OPENWEATHERMAP_KEY_ID=<ADD_YOUR_KEY_ID>"
+        - "TWITTER_CONSUMER_KEY=<ADD_YOUR_CONSUMER_KEY>"
+        - "TWITTER_CONSUMER_SECRET=<ADD_YOUR_CONSUMER_SECRET>"
+        
+orion:
+    image: fiware/orion:latest
+    hostname: orion
+    container_name: fiware-orion
+    depends_on:
+        - mongo-db
+    networks:
+        - default
+    expose:
+        - "1026"
+    ports:
+        - "1026:1026"
+    command: -dbhost mongo-db -logLevel DEBUG
+    
+orion:
+    image: fiware/orion:latest
+    hostname: orion
+    container_name: orion
+    depends_on:
+        - mongo-db
+    networks:
+        - default
+    expose:
+        - "1026"
+    ports:
+        - "1026:1026"
+    command: -dbhost mongo-db -logLevel DEBUG
+    
+mongo-db:
+    image: mongo:3.6
+    hostname: mongo-db
+    container_name: db-mongo
+    expose:
+        - "27017"
+    ports:
+        - "27017:27017"
+    networks:
+        - default
+    command: --bind_ip_all --smallfiles
+
